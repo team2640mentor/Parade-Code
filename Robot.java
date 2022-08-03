@@ -72,28 +72,29 @@ public class Robot extends TimedRobot {
   public void autonomousPeriodic() {
   //get time since start of auto
     double autoTimeElapsed = Timer.getFPGATimestamp() - autoStart;
-    if(goForAuto){
-      if(autoTimeElapsed < 1.25){
+    if (goForAuto) {
+      if (autoTimeElapsed < 1.25) {
         //go forward
         driveLeftA.set(0.2);
         driveLeftB.set(0.2);
         driveRightA.set(0.2);
         driveRightB.set(0.2);
       //series of timed events making up the flow of auto
-      }else if(autoTimeElapsed < 8){
+      } else if (autoTimeElapsed < 8) {
         // drive backwards *slowly* 
         driveLeftA.set(-0.2);
         driveLeftB.set(-0.2);
         driveRightA.set(-0.2);
         driveRightB.set(-0.2);
-      }else{
+      } else {
         //do nothing for the rest of auto
         driveLeftA.set(0);
         driveLeftB.set(0);
         driveRightA.set(0);
         driveRightB.set(0);
-      }}
+      }
     }
+  }
   
 
   /** This function is called once when teleop is enabled. */
@@ -105,10 +106,10 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     //Set up arcade steer
     if (driverController.getRawButton(1)) {
-    new ParallelCommandGroup(
-      new InstantCommand(solenoid1.toggle()),
-      new InstantCommand(solenoid2.toggle()),
-      new InstantCommand(solenoid3.toggle())
+      new ParallelCommandGroup(
+        new InstantCommand(solenoid1.toggle()),
+        new InstantCommand(solenoid2.toggle()),
+        new InstantCommand(solenoid3.toggle())
       ); 
     }
     double forward= -driverController.getRawAxis(1);
