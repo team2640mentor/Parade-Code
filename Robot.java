@@ -106,10 +106,11 @@ public class Robot extends TimedRobot {
     //Set up arcade steer
     if (driverController.getRawButton(1)) {
     new ParallelCommandGroup(
-     new InstantCommand(solenoid1.toggle()),
-     new InstantCommand(solenoid2.toggle()),
-     new InstantCommand(solenoid3.toggle())
-       ;) }
+      new InstantCommand(solenoid1.toggle()),
+      new InstantCommand(solenoid2.toggle()),
+      new InstantCommand(solenoid3.toggle())
+      ); 
+    }
     double forward= -driverController.getRawAxis(1);
     double turn = -driverController.getRawAxis(4);
     double driveLeftPower = forward - turn;
