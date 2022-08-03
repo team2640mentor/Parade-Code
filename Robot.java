@@ -1,14 +1,3 @@
-/*
-  2022 everybot code
-  written by carson graf 
-  don't email me, @ me on discord
-*/
-
-/*
-  This is catastrophically poorly written code for the sake of being easy to follow
-  If you know what the word "refactor" means, you should refactor this code
-*/
-
 package frc.robot;
 
 import com.revrobotics.CANSparkMax;
@@ -37,43 +26,7 @@ public class Robot extends TimedRobot {
   Joystick driverController = new Joystick(0);
   //private boolean extended; 
 
-  //pnuematics
-  /*public void toggle() {
-    if (extended) {
-      solenoid1.set(Value.kReverse);
-      solenoid2.set(Value.kReverse);
-      solenoid3.set(Value.kReverse);
-      setSpeed(0);
-    } else {
-      solenoid1.set(Value.kReverse);
-      solenoid2.set(Value.kReverse);
-      solenoid3.set(Value.kForward);
-    }
-    extended = !extended;
-  }
-
-*/
-  /*private void setSpeed(int i) {
-  }
-
-  public void deploy() {
-    solenoid1.set(Value.kForward);
-    solenoid2.set(Value.kForward);
-    solenoid3.set(Value.kForward);
-    extended = true;
-  }
-
-  public void retract() {
-    solenoid1.set(Value.kReverse);
-    solenoid2.set(Value.kReverse);
-    solenoid3.set(Value.kReverse);
-    extended = false;
-  }
-
-  public boolean isExtended() {
-    return extended;
-  }
-*/
+  
   /*Varibles needed for the code*/
   boolean burstMode = false; 
   double lastBurstTime = 0;
