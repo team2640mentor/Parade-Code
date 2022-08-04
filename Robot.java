@@ -101,16 +101,18 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {}
 
+  public void deployIntake() {
+    solenoid1.toggle();
+    solenoid2.toggle();
+    solenoid3.toggle();
+  }
+
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
     //Set up arcade steer
     if (driverController.getRawButton(1)) {
-      new ParallelCommandGroup(
-        new InstantCommand(solenoid1.toggle()),
-        new InstantCommand(solenoid2.toggle()),
-        new InstantCommand(solenoid3.toggle())
-      ); 
+      deployIntake();
     }
     double forward= -driverController.getRawAxis(1);
     double turn = -driverController.getRawAxis(4);
