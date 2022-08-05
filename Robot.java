@@ -3,15 +3,15 @@ package frc.robot;
 import com.revrobotics.CANSparkMax;
 //import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
+//import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+//import edu.wpi.first.wpilibj2.command.InstantCommand;
+//import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 
 public class Robot extends TimedRobot {
   
@@ -20,9 +20,9 @@ public class Robot extends TimedRobot {
   CANSparkMax driveLeftB = new CANSparkMax(2, MotorType.kBrushed);
   CANSparkMax driveRightA = new CANSparkMax(3, MotorType.kBrushed);
   CANSparkMax driveRightB = new CANSparkMax(4, MotorType.kBrushed);
-  private final DoubleSolenoid solenoid1 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,0,1);  //REVPH OR CTREPCM FIND OUT LATER
-  private final DoubleSolenoid solenoid2 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,2,3);
-  private final DoubleSolenoid solenoid3 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,4,5);
+  private final Solenoid solenoid1 = new Solenoid(PneumaticsModuleType.CTREPCM,0); 
+  private final Solenoid solenoid2 = new Solenoid(PneumaticsModuleType.CTREPCM,4);
+  private final Solenoid solenoid3 = new Solenoid(PneumaticsModuleType.CTREPCM,5); //REVPH OR CTREPCM FIND OUT LATER
   Joystick driverController = new Joystick(0);
   //private boolean extended; 
 
@@ -50,9 +50,7 @@ public class Robot extends TimedRobot {
     driveRightA.burnFlash();
     driveRightB.setInverted(false);
     driveRightB.burnFlash();
-    solenoid1.set(Value.kReverse);
-    solenoid2.set(Value.kReverse);
-    solenoid3.set(Value.kReverse);
+
 
     //add a thing on the dashboard to turn off auto if needed
     SmartDashboard.putBoolean("Go For Auto", false);
@@ -106,12 +104,15 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     //Set up arcade steer
     if (driverController.getRawButton(1)) {
-      new ParallelCommandGroup(
-        new InstantCommand(solenoid1.toggle()),
-        new InstantCommand(solenoid2.toggle()),
-        new InstantCommand(solenoid3.toggle())
-      ); 
-    }
+      solenoid1.set(true);}
+      else {solenoid1.toggle();}
+    if (driverController.getRawButton(1)) {
+        solenoid2.set(true);}
+      else {solenoid2.toggle();}
+    if (driverController.getRawButton(1)) {
+          solenoid1.set(true);}
+      else {solenoid3.toggle();}
+      
     double forward= -driverController.getRawAxis(1);
     double turn = -driverController.getRawAxis(4);
     double driveLeftPower = forward - turn;
@@ -121,7 +122,7 @@ public class Robot extends TimedRobot {
     driveLeftB.set(driveLeftPower);
     driveRightA.set(driveRightPower);
     driveRightB.set(driveRightPower);
-  }
+    }  
 
   @Override
   public void disabledInit() {
