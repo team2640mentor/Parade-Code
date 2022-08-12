@@ -1,17 +1,13 @@
 package frc.robot;
 
 import com.revrobotics.CANSparkMax;
-//import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-//import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-//import edu.wpi.first.wpilibj2.command.InstantCommand;
-//import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 
 public class Robot extends TimedRobot {
   
@@ -20,11 +16,10 @@ public class Robot extends TimedRobot {
   CANSparkMax driveLeftB = new CANSparkMax(2, MotorType.kBrushed);
   CANSparkMax driveRightA = new CANSparkMax(3, MotorType.kBrushed);
   CANSparkMax driveRightB = new CANSparkMax(4, MotorType.kBrushed);
-  private final Solenoid solenoid1 = new Solenoid(PneumaticsModuleType.CTREPCM,0); 
+  private final Solenoid solenoid1 = new Solenoid(PneumaticsModuleType.CTREPCM,0);
   private final Solenoid solenoid2 = new Solenoid(PneumaticsModuleType.CTREPCM,4);
-  private final Solenoid solenoid3 = new Solenoid(PneumaticsModuleType.CTREPCM,5); //REVPH OR CTREPCM FIND OUT LATER
+  private final Solenoid solenoid3 = new Solenoid(PneumaticsModuleType.CTREPCM,5);
   Joystick driverController = new Joystick(0);
-  //private boolean extended; 
 
   
   /*Varibles needed for the code*/
@@ -41,7 +36,6 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     //Configure motors to turn correct direction. You may have to invert some of your motors, orginally Driveleftb(true),Driverightb(false)
-    //added intakeB.follow(intakeA); to synchronize intake motors
     driveLeftA.setInverted(true);   
     driveLeftA.burnFlash();
     driveLeftB.setInverted(true);
@@ -102,16 +96,27 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    //Set up arcade steer
+
+/*Press A and it detonates shooter *kaboom* try and wait till the cylinders are full before shooting to make sure it has
+max power, compressor will stop whenever the cylinders are full, adjust psi as needed*/
     if (driverController.getRawButton(1)) {
       solenoid1.set(true);}
-      else {solenoid1.toggle();}
     if (driverController.getRawButton(1)) {
         solenoid2.set(true);}
-      else {solenoid2.toggle();}
     if (driverController.getRawButton(1)) {
-          solenoid1.set(true);}
-      else {solenoid3.toggle();}
+          solenoid3.set(true);}
+
+/* Press B and it releases air from shooter and can be pushed down manually (with ball or by hand) 
+you should hear the air released from the tanks */
+    if(driverController.getRawButton(2))  {
+      solenoid1.set(false);}
+    if(driverController.getRawButton(2))  {
+      solenoid2.set(false);}
+    if(driverController.getRawButton(2))  {
+        solenoid3.set(false);}
+
+    
+
       
     double forward= -driverController.getRawAxis(1);
     double turn = -driverController.getRawAxis(4);
