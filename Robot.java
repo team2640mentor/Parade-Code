@@ -21,7 +21,6 @@ public class Robot extends TimedRobot {
   private final Solenoid solenoid3 = new Solenoid(PneumaticsModuleType.CTREPCM,5);
   Joystick driverController = new Joystick(0);
 
-  
   /*Varibles needed for the code*/
   boolean burstMode = false; 
   double lastBurstTime = 0;
@@ -30,8 +29,8 @@ public class Robot extends TimedRobot {
   boolean goForAuto = false;
 
   /*
-   * This function is run when the robot is first started up and should be used for any
-   * initialization code.
+   This function is run when the robot is first started up and should be used for any
+   initialization code.
    */
   @Override
   public void robotInit() {
@@ -89,16 +88,16 @@ public class Robot extends TimedRobot {
   }
   
 
-  /** This function is called once when teleop is enabled. */
+  /* This function is called once when teleop is enabled. */
   @Override
   public void teleopInit() {}
 
-  /** This function is called periodically during operator control. */
+  /* This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
 
 /*Press A and it detonates shooter *kaboom* try and wait till the cylinders are full before shooting to make sure it has
-max power, compressor will stop whenever the cylinders are full, adjust psi as needed*/
+max power, compressor will stop whenever the cylinders are full, adjust psi as needed */
     if (driverController.getRawButton(1)) {
       solenoid1.set(true);}
     if (driverController.getRawButton(1)) {
@@ -113,11 +112,9 @@ you should hear the air released from the tanks */
     if(driverController.getRawButton(2))  {
       solenoid2.set(false);}
     if(driverController.getRawButton(2))  {
-        solenoid3.set(false);}
+      solenoid3.set(false);}
 
-    
 
-      
     double forward= -driverController.getRawAxis(1);
     double turn = -driverController.getRawAxis(4);
     double driveLeftPower = forward - turn;
@@ -137,6 +134,9 @@ you should hear the air released from the tanks */
     driveLeftB.set(0);
     driveRightA.set(0);
     driveRightB.set(0);
+    solenoid1.set(false);
+    solenoid2.set(false);
+    solenoid3.set(false);
   }
     
 }
