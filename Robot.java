@@ -66,7 +66,7 @@ public class Robot extends TimedRobot {
     if (goForAuto) {
       if (autoTimeElapsed < 1.25) {
         //go forward
-        driveLeftA.set(0.215);
+        driveLeftA.set(0.2);
         driveLeftB.set(0.2);
         driveRightA.set(0.2);
         driveRightB.set(0.2);
